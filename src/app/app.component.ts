@@ -28,6 +28,7 @@ export class AppComponent {
   requestLatitude: 24.8635707
   requestLongitude: 67.0753158
   requestDeadline: ''
+  currentVideoJson: {}
   //
   constructor(
     private http: HttpClient) {
@@ -164,6 +165,16 @@ export class AppComponent {
     }
   }
 
+  async setCurrentVideoJson(data) {
+    // const videoId = '5cd550420d7529d308fac162';
+    // let url = this.baseUrl + `videos/${videoId}/buy` + '?access_token=' + this.accesstoken;
+    try {
+      this.currentVideoJson = data
+    } catch (err) {
+      alert(err.error.message)
+      console.log('purchaseVideo-Error->', err)
+    }
+  }
   // initPlayer(id, url) {
   //   alert(url)
   //    window.SLDP.init({

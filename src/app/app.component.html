@@ -9,54 +9,133 @@
 
 <!-- Page content -->
 <div class="content">
+  <h1>stringr</h1>
+  <br>
+  <h4>A marketplace to bring together buyers and sellers of video footage
+    </h4>
 <!-- <div> -->
   <!-- <h1 style="text-align:center">
     Welcome to {{ title }}!
   </h1> -->
   <!-- <div> -->
+    <hr>
     <div id="auth">
+
       <h2>Authentication</h2>
-      Access Token: <input type="text" name="accesstoken" [(ngModel)]="accesstoken" /> <span><i>required</i></span> <br>
-      Domain: <input type="text" name="domain" [(ngModel)]="domain" /> <span><i>required-without trailing slash</i></span>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Access Token</label>
+        <input class="form-control" type="text" name="accesstoken" [(ngModel)]="accesstoken" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Domain</label>
+        <input class="form-control" type="text" name="domain" [(ngModel)]="domain" />
+        <small id="emailHelp" class="form-text">required-without trailing slash</small>
+      </div>
     </div>
 
+    <br>
+    <hr>
+    <br>
     
     <div id="request">
       <h2>Request</h2>
 
-      Create Request: <br>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Subject</label>
+        <input class="form-control" type="text" [(ngModel)]="requestSubject" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
 
-      Subject: <input type="text" [(ngModel)]="requestSubject" /> <span><i>required</i></span> <br>
-      Description: <input type="text" [(ngModel)]="requestDescription" /> <span><i>required</i></span><br>
-      address: <input type="text" [(ngModel)]="requestAddress" /> <span><i>required</i></span> <br>
-      category: <input type="text" [(ngModel)]="requestCategory" /> <span><i>required</i></span> <br>
-      latitude: <input type="number" [(ngModel)]="requestLatitude" /> <span><i>required</i></span> <br>
-      longitude: <input type="number" [(ngModel)]="requestLongitude" /> <span><i>required</i></span> <br>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Description</label>
+        <input class="form-control" type="text" [(ngModel)]="requestDescription" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Address</label>
+        <input class="form-control" type="text" [(ngModel)]="requestAddress" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Category</label>
+        <input class="form-control" type="text" [(ngModel)]="requestCategory" />
+        <small id="emailHelp" class="form-text">required</small>
+        <small id="emailHelp" class="form-text">Allowed categories: general, broll, crimeFireAccidents, communityEvent, pressConferenceInterview, protest,
+            weather </small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Latitude</label>
+        <input class="form-control" type="number" [(ngModel)]="requestLatitude" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Longitude</label>
+        <input class="form-control" type="number" [(ngModel)]="requestLongitude" />
+        <small id="emailHelp" class="form-text">required</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Deadline</label>
+        <input class="form-control" type="text" [(ngModel)]="requestDeadline" />
+        <small id="emailHelp" class="form-text">required - format:
+            2019-05-28T15:30:00+05:00</small>
+      </div>
+
+      <!-- Subject: <input class="form-control" type="text" [(ngModel)]="requestSubject" /> <span><i>required</i></span> <br>
+      Description: <input class="form-control" type="text" [(ngModel)]="requestDescription" /> <span><i>required</i></span><br>
+      address: <input class="form-control" type="text" [(ngModel)]="requestAddress" /> <span><i>required</i></span> <br>
+      category: <input class="form-control" type="text" [(ngModel)]="requestCategory" /> <span><i>required</i></span> <br>
+      latitude: <input class="form-control" type="number" [(ngModel)]="requestLatitude" /> <span><i>required</i></span> <br>
+      longitude: <input class="form-control" type="number" [(ngModel)]="requestLongitude" /> <span><i>required</i></span> <br>
       <span>Allowed categories: general, broll, crimeFireAccidents, communityEvent, pressConferenceInterview, protest,
         weather </span>
       <br>
-      deadline: <input type="text" [(ngModel)]="requestDeadline" /> <span><i>required - format:
-          2019-05-28T15:30:00+05:00 </i></span> <br>
+      deadline: <input class="form-control" type="text" [(ngModel)]="requestDeadline" /> <span><i>required - format:
+          2019-05-28T15:30:00+05:00 </i></span> <br> -->
 
-      <button (click)="createfootageRequest()">Create request</button>
+      <button class="btn btn-primary" (click)="createfootageRequest()">Create request</button>
     </div>
 
+    <br>
+    <hr>
     <br>
 
     <div id="videos" style="">
       <h2>Videos</h2>
-      <label>Videos</label> <br>
-      requestId: <input type="text" name="accesstoken" [(ngModel)]="videosRequestId" /> <span><i>optional- ID of the
-          footage request</i></span> <br>
-      search: <input type="text" name="domain" [(ngModel)]="videosSearch" /> <span><i>optional- Search term to search
-          in videos</i></span> <br>
-      fromDate: <input type="text" name="accesstoken" [(ngModel)]="videosfromDate" /> <span><i>optional - Starting
-          date/time of the video</i></span> <br>
-      toDate: <input type="text" name="domain" [(ngModel)]="videostoDate" /> <span><i>optional - Ending date/time of
-          the video</i></span> <br>
+      
+      <div class="form-group">
+        <label for="exampleInputEmail1">search</label>
+        <input class="form-control" type="text" name="domain" [(ngModel)]="videosSearch" />
+        <small id="emailHelp" class="form-text">optional- Search term to search in videos</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">requestId</label>
+        <input class="form-control" type="text" name="accesstoken" [(ngModel)]="videosRequestId" />
+        <small id="emailHelp" class="form-text">optional- ID of the footage request</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">From Date</label>
+        <input class="form-control" type="text" name="accesstoken" [(ngModel)]="videosfromDate" />
+        <small id="emailHelp" class="form-text">optional - Starting date/time of the video</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">To Date</label>
+        <input class="form-control" type="text" name="domain" [(ngModel)]="videostoDate" />
+        <small id="emailHelp" class="form-text">optional - Ending date/time of the video</small>
+      </div>
 
       <br>
-      <button (click)="getVideos()">Search Videos</button>
+      <button class="btn btn-primary" (click)="getVideos()">Search Videos</button>
       <br>
       <br>
       <div *ngFor="let vid of videos" style="display: inline-block;height: 300px;width: 400px">
@@ -73,8 +152,33 @@
         <br>
         {{vid.Description}}
         <br>
-        <button (click)="purchaseVideo(vid._id)">Purshased Video</button> <span style="padding-left:5px"></span> <button *ngIf="!vid.isLiveStream" (click)="getDownloadVideo(vid._id)">Download
-          Video</button>
+        <button (click)="purchaseVideo(vid._id)">Purshased</button> <span style="padding-left:5px"></span> <button *ngIf="!vid.isLiveStream" (click)="getDownloadVideo(vid._id)">Download</button>
+          <!-- Button trigger modal -->
+        <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="setCurrentVideoJson(vid)">
+            JSON
+          </button>
+      </div>
+    </div>
+
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{currentVideoJson.Description}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <pre>{{currentVideoJson | json}}</pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
     
