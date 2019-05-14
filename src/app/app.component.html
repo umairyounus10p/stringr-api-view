@@ -1,21 +1,69 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
+
+
+<div>
+  <h1 style="text-align:center">
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  <div>
+    <div>
+      <h2>Authentication</h2>
+      Access Token: <input type="text" name="accesstoken" [(ngModel)]="accesstoken" /> <span><i>required</i></span> <br>
+      Domain: <input type="text" name="domain" [(ngModel)]="domain" /> <span><i>required-without trailing slash</i></span>
+    </div>
 
-<router-outlet></router-outlet>
+    <h2>Request</h2>
+    <div> Create Request: <br>
+
+      Subject: <input type="text" [(ngModel)]="requestSubject" /> <span><i>required</i></span> <br>
+      Description: <input type="text" [(ngModel)]="requestDescription" /> <span><i>required</i></span><br>
+      address: <input type="text" [(ngModel)]="requestAddress" /> <span><i>required</i></span> <br>
+      category: <input type="text" [(ngModel)]="requestCategory" /> <span><i>required</i></span> <br>
+      latitude: <input type="number" [(ngModel)]="requestLatitude" /> <span><i>required</i></span> <br>
+      longitude: <input type="number" [(ngModel)]="requestLongitude" /> <span><i>required</i></span> <br>
+      <span>Allowed categories: general, broll, crimeFireAccidents, communityEvent, pressConferenceInterview, protest,
+        weather </span>
+      <br>
+      deadline: <input type="text" [(ngModel)]="requestDeadline" /> <span><i>required - format:
+          2019-05-28T15:30:00+05:00 </i></span> <br>
+
+      <button (click)="createfootageRequest()">Create request</button>
+    </div>
+    <br>
+
+    <h2>Videos</h2>
+    <div id="viewVideos" style="">
+      <label>Videos</label> <br>
+      requestId: <input type="text" name="accesstoken" [(ngModel)]="videosRequestId" /> <span><i>optional- ID of the
+          footage request</i></span> <br>
+      search: <input type="text" name="domain" [(ngModel)]="videosSearch" /> <span><i>optional- Search term to search
+          in videos</i></span> <br>
+      fromDate: <input type="text" name="accesstoken" [(ngModel)]="videosfromDate" /> <span><i>optional - Starting
+          date/time of the video</i></span> <br>
+      toDate: <input type="text" name="domain" [(ngModel)]="videostoDate" /> <span><i>optional - Ending date/time of
+          the video</i></span> <br>
+
+      <br>
+      <button (click)="getVideos()">Search Videos</button>
+      <br>
+      <br>
+      <div *ngFor="let vid of videos" style="display: inline-block;height: 300px;width: 400px">
+
+
+        <app-live *ngIf="vid.isLiveStream" ids="{{vid._id}}" url="{{vid.liveStream.outgoingUrlWSS}}"></app-live>
+
+        <video *ngIf="!vid.isLiveStream && vid.type === 'video'" style="background-image: url('/assets/images/live.jpg'); background-size: cover; height: 180px; width: 320px;"
+          controls controlsList="nodownload">
+          <source *ngIf="vid.UploadObj.length" src="{{vid.UploadObj[0].url}}" type="video/mp4">
+          <source *ngIf="vid.UploadObj.length" src="{{vid.UploadObj[0].hdurl}}" type="video/ogg">
+          Your browser does not support the video tag.
+        </video>
+        <br>
+        {{vid.Description}}
+        <br>
+        <button (click)="purchaseVideo(vid._id)">Purshased Video</button> | <button (click)="getDownloadVideo(vid._id)">Download
+          Video</button>
+      </div>
+    </div>
+
+    <router-outlet></router-outlet>

@@ -1,0 +1,12 @@
+.sldp_cbar_video {
+    top: 0px !important;
+    bottom: auto !important;
+}
+.sldp_player_wrp_video {
+    display: block !important;
+    height: 0 !important;
+    padding-bottom: 56.175% !important;
+}
+.sldp_indicator {
+    width: 100% !important
+}
