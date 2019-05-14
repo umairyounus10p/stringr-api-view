@@ -88,7 +88,7 @@ export class AppComponent {
       const result = await this.post('request', params);
       if (result) {
         this.reponse = result
-        alert('created');
+        alert('Your video request has been created!');
       }
     } catch (err) {
       console.log('createfootageRequest-Error->', err)
