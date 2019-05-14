@@ -1,19 +1,30 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!-- The content below is only a placeholder and can be replaced. -->
 
+<!-- The sidebar -->
+<nav class="sidebar">
+  <a class="active" href="#auth">Auth</a>
+  <a href="#request">Request</a>
+  <a href="#videos">Videos</a>
+</nav>
 
-<div>
-  <h1 style="text-align:center">
+<!-- Page content -->
+<div class="content">
+<!-- <div> -->
+  <!-- <h1 style="text-align:center">
     Welcome to {{ title }}!
-  </h1>
-  <div>
-    <div>
+  </h1> -->
+  <!-- <div> -->
+    <div id="auth">
       <h2>Authentication</h2>
       Access Token: <input type="text" name="accesstoken" [(ngModel)]="accesstoken" /> <span><i>required</i></span> <br>
       Domain: <input type="text" name="domain" [(ngModel)]="domain" /> <span><i>required-without trailing slash</i></span>
     </div>
 
-    <h2>Request</h2>
-    <div> Create Request: <br>
+    
+    <div id="request">
+      <h2>Request</h2>
+
+      Create Request: <br>
 
       Subject: <input type="text" [(ngModel)]="requestSubject" /> <span><i>required</i></span> <br>
       Description: <input type="text" [(ngModel)]="requestDescription" /> <span><i>required</i></span><br>
@@ -29,10 +40,11 @@
 
       <button (click)="createfootageRequest()">Create request</button>
     </div>
+
     <br>
 
-    <h2>Videos</h2>
-    <div id="viewVideos" style="">
+    <div id="videos" style="">
+      <h2>Videos</h2>
       <label>Videos</label> <br>
       requestId: <input type="text" name="accesstoken" [(ngModel)]="videosRequestId" /> <span><i>optional- ID of the
           footage request</i></span> <br>
@@ -65,5 +77,7 @@
           Video</button>
       </div>
     </div>
+    
+</div>
 
-    <router-outlet></router-outlet>
+<router-outlet></router-outlet>
