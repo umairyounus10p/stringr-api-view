@@ -9,8 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AppComponent {
   title = 'stringr-api-test';
   reponse: any = {};
-  accesstoken: string = '2eff85e1288fcbfeb3597972c83b1d4a';
-  domain: string = 'https://localhost:3443';
+  accesstoken: string = ''; // '2eff85e1288fcbfeb3597972c83b1d4a';
+  domain: string = ''; // 'https://localhost:3443';
   videos: any;
   //
   videosRequestId: string;

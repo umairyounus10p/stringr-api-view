@@ -61,7 +61,7 @@
         <br>
         {{vid.Description}}
         <br>
-        <button (click)="purchaseVideo(vid._id)">Purshased Video</button> | <button (click)="getDownloadVideo(vid._id)">Download
+        <button (click)="purchaseVideo(vid._id)">Purshased Video</button> <span style="padding-left:5px"></span> <button *ngIf="!vid.isLiveStream" (click)="getDownloadVideo(vid._id)">Download
           Video</button>
       </div>
     </div>
