@@ -34,6 +34,9 @@ export class AppComponent {
   requestSubUserId: string;
   //
   currentVideoJson: {}
+  createRequestCurl: any
+  getVideoCurl: any
+  getRequestCurl: any
   //
   // get requests
   getReqDate: string;
@@ -81,7 +84,7 @@ export class AppComponent {
   }
 
   async createfootageRequest() {
-    if (!this.requestSubject || !this.requestDescription || !this.requestCategory
+    if (!this.requestSubject || !this.requestDescription || !this.requestCategory || !this.requestAddress 
       || !this.requestDeadline || !this.requestLatitude || !this.requestLongitude) {
       alert('Enter required feilds')
       return;
@@ -111,6 +114,11 @@ export class AppComponent {
     try {
       const result = await this.post('request', params);
       if (result) {
+        // make curl request if request to server is successfull
+        this.createRequestCurl = `curl -d '${JSON.stringify(params)}'\
+          -H "Content-Type: application/json" -H "access_token: ${this.accesstoken}"  --insecure\
+          -X POST ${this.domain}${this.baseUrl}request`
+
         this.reponse = result
         alert('Your video request has been created!');
       }
@@ -123,6 +131,9 @@ export class AppComponent {
     const request = `requests?date=${this.getReqDate || ''}&subCustomerId=${this.getReqSubCustomerId || ''}&subUserId=${this.getReqSubUserId || ''}`;
     try {
       const result = await this.get(request);
+      this.getRequestCurl = `curl -H "access_token: ${this.accesstoken}" --insecure\
+      -X GET ${this.domain}${this.baseUrl}${request}`
+
       if (result) {
         this.footageRequests = result;
         console.log(this.footageRequests)
@@ -137,6 +148,9 @@ export class AppComponent {
       const request = `videos?requestId=${this.videosRequestId || ''}&search=${this.videosSearch || ''}&fromDate=${this.videosfromDate || ''}&toDate=${this.videostoDate || ''}`
       const result = await this.get(request);
       if (result) {
+        this.getVideoCurl = `curl -H "access_token: ${this.accesstoken}" --insecure\
+        -X GET ${this.domain}${this.baseUrl}${request}`
+
         this.videos = result;
         console.log(this.videos)
       }

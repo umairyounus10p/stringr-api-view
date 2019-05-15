@@ -113,6 +113,11 @@
     </div>
     <button class="btn btn-primary" (click)="createfootageRequest()">Create request</button>
 
+    <div class="form-group" *ngIf="createRequestCurl">
+      <label for="exampleFormControlTextarea2">Curl Request</label>
+      <textarea style="background: black; color: white" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3">{{createRequestCurl}}</textarea>
+    </div>
+
     <br>
     <hr>
     <h5>Get Request</h5>
@@ -136,6 +141,11 @@
     </div>
 
     <button class="btn btn-primary" (click)="getfootageRequests()">Get requests</button>
+
+    <div class="form-group" *ngIf="getRequestCurl">
+      <label for="exampleFormControlTextarea2">Curl Request</label>
+      <textarea style="background: black; color: white" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3">{{getRequestCurl}}</textarea>
+    </div>
 
     <div id="_footageRequests" style="overflow-y: scroll">
       <br>
@@ -203,6 +213,10 @@
 
     <br>
     <button class="btn btn-primary" (click)="getVideos()">Search Videos</button>
+    <div class="form-group" *ngIf="getVideoCurl">
+      <label for="exampleFormControlTextarea2">Curl Request</label>
+      <textarea style="background: black; color: white" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3">{{getVideoCurl}}</textarea>
+    </div>
     <br>
     <br>
     <div *ngFor="let vid of videos" style="display: inline-block;height: 300px;width: 400px">
