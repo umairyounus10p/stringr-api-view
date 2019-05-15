@@ -28,8 +28,19 @@ export class AppComponent {
   requestLatitude: 24.8635707
   requestLongitude: 67.0753158
   requestDeadline: ''
+  requestIsLive: false
+  requestStringPro: false
+  requestSubCustomerId: string;
+  requestSubUserId: string;
+  //
   currentVideoJson: {}
   //
+  // get requests
+  getReqDate: string;
+  getReqSubCustomerId: string;
+  getReqSubUserId: string;
+  footageRequests: any;
+
   constructor(
     private http: HttpClient) {
   }
@@ -49,6 +60,7 @@ export class AppComponent {
     if (request.indexOf('?') > -1) {
       token = token.replace('?', '&')
     }
+    // this.headers = this.headers.append('access_token',  this.accesstoken);
     const url = this.domain + this.baseUrl + request + token;
     return this.http.get(url, {
       headers: this.headers
@@ -62,26 +74,38 @@ export class AppComponent {
       token = token.replace('?', '&')
     }
     const url = this.domain + this.baseUrl + request + token;
+    // this.headers = this.headers.append('access_token',  this.accesstoken);
     return this.http.post(url, data, {
       headers: this.headers
     }).toPromise<any>();;
   }
 
   async createfootageRequest() {
-    if (!this.requestSubject || !this.requestDescription || !this.requestAddress || !this.requestCategory
+    if (!this.requestSubject || !this.requestDescription || !this.requestCategory
       || !this.requestDeadline || !this.requestLatitude || !this.requestLongitude) {
       alert('Enter required feilds')
       return;
     }
 
-    let params = {
+    let params: any = {
       subject: this.requestSubject,
       description: this.requestDescription,
       address: this.requestAddress,
       category: this.requestCategory,
       deadline: this.requestDeadline,
       latitude: this.requestLatitude,
-      longitude: this.requestLongitude
+      longitude: this.requestLongitude,
+      subCustomerId: this.requestSubCustomerId || '',
+      subUserId: this.requestSubUserId || '',
+      tier: 'standard'
+    }
+
+    if (this.requestIsLive) {
+      params.isLive = true;
+    }
+
+    if (this.requestStringPro) {
+      params.tier = 'pro';
     }
 
     try {
@@ -96,12 +120,12 @@ export class AppComponent {
   }
 
   async getfootageRequests() {
-    let url = this.baseUrl + 'requests';
+    const request = `requests?date=${this.getReqDate || ''}&subCustomerId=${this.getReqSubCustomerId || ''}&subUserId=${this.getReqSubUserId || ''}`;
     try {
-      const result = await this.get('requests?date=' + '2019-05-10');
+      const result = await this.get(request);
       if (result) {
-        this.reponse = result;
-        console.log(this.reponse)
+        this.footageRequests = result;
+        console.log(this.footageRequests)
       }
     } catch (err) {
       console.log('getfootageRequests-Error->', err)
@@ -122,7 +146,6 @@ export class AppComponent {
   }
 
   async getVideoDetails() {
-    // /api/public/videos/{videoId}
     const videoId = '5cd550420d7529d308fac162';
     try {
       const result = await this.get(`videos/${videoId}`);
@@ -136,8 +159,6 @@ export class AppComponent {
   }
 
   async getDownloadVideo(videoId) {
-    // const videoId = '5cd550420d7529d308fac162';
-    // let url = this.baseUrl + `videos/${videoId}/download` + '?access_token=' + this.accesstoken;
     try {
       const result = await this.get(`videos/${videoId}/download`);
       if (result) {
@@ -151,8 +172,6 @@ export class AppComponent {
 
 
   async purchaseVideo(videoId) {
-    // const videoId = '5cd550420d7529d308fac162';
-    // let url = this.baseUrl + `videos/${videoId}/buy` + '?access_token=' + this.accesstoken;
     try {
       const result = await this.post(`videos/${videoId}/buy`, {});
       if (result) {
@@ -166,8 +185,6 @@ export class AppComponent {
   }
 
   async setCurrentVideoJson(data) {
-    // const videoId = '5cd550420d7529d308fac162';
-    // let url = this.baseUrl + `videos/${videoId}/buy` + '?access_token=' + this.accesstoken;
     try {
       this.currentVideoJson = data
     } catch (err) {
@@ -175,21 +192,4 @@ export class AppComponent {
       console.log('purchaseVideo-Error->', err)
     }
   }
-  // initPlayer(id, url) {
-  //   alert(url)
-  //    window.SLDP.init({
-  //     container: id,
-  //     stream_url: "wss://d2arg9zixcnu0v.cloudfront.net/dev/failover",
-  //     autoplay: true,
-  //     height: 180,
-  //     width: 320,
-  //     autoplay: true,
-  //     muted: true,
-  //     offset: 3,
-  //     splash_screen: '/assets/images/live.jpg',
-  //     latency_tolerance: 500,
-  //     controls: true
-  //   });
-  // };
-
 }
