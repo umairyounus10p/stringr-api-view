@@ -116,7 +116,7 @@ export class AppComponent {
       if (result) {
         // make curl request if request to server is successfull
         this.createRequestCurl = `curl -d '${JSON.stringify(params)}'\
-          -H "Content-Type: application/json" -H "access_token: ${this.accesstoken}"  --insecure\
+          -H "Content-Type: application/json" -H "access_token: ${this.accesstoken}" \
           -X POST ${this.domain}${this.baseUrl}request`
 
         this.reponse = result
@@ -131,7 +131,7 @@ export class AppComponent {
     const request = `requests?date=${this.getReqDate || ''}&subCustomerId=${this.getReqSubCustomerId || ''}&subUserId=${this.getReqSubUserId || ''}`;
     try {
       const result = await this.get(request);
-      this.getRequestCurl = `curl -H "access_token: ${this.accesstoken}" --insecure\
+      this.getRequestCurl = `curl -H "access_token: ${this.accesstoken}"\
       -X GET ${this.domain}${this.baseUrl}${request}`
 
       if (result) {
@@ -148,7 +148,7 @@ export class AppComponent {
       const request = `videos?requestId=${this.videosRequestId || ''}&search=${this.videosSearch || ''}&fromDate=${this.videosfromDate || ''}&toDate=${this.videostoDate || ''}`
       const result = await this.get(request);
       if (result) {
-        this.getVideoCurl = `curl -H "access_token: ${this.accesstoken}" --insecure\
+        this.getVideoCurl = `curl -H "access_token: ${this.accesstoken}"\
         -X GET ${this.domain}${this.baseUrl}${request}`
 
         this.videos = result;
