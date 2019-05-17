@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AppComponent {
   title = 'stringr-api-test';
   reponse: any = {};
-  accesstoken: string = ''; // '2eff85e1288fcbfeb3597972c83b1d4a';
+  apiKey: string = ''; // '2eff85e1288fcbfeb3597972c83b1d4a';
   domain: string = ''; // 'https://localhost:3443';
   videos: any;
   //
@@ -52,18 +52,18 @@ export class AppComponent {
   headers = new HttpHeaders();
 
   validateAuth() {
-    if (!this.domain || !this.accesstoken) {
-      alert('Please provide domain and accesstoken')
+    if (!this.domain || !this.apiKey) {
+      alert('Please provide domain and apiKey')
     }
   }
 
   get(request: string) {
     this.validateAuth();
-    let token = '?access_token=' + this.accesstoken
+    let token = '?api_key=' + this.apiKey
     if (request.indexOf('?') > -1) {
       token = token.replace('?', '&')
     }
-    // this.headers = this.headers.append('access_token',  this.accesstoken);
+    // this.headers = this.headers.append('api_key',  this.apiKey);
     const url = this.domain + this.baseUrl + request + token;
     return this.http.get(url, {
       headers: this.headers
@@ -72,12 +72,12 @@ export class AppComponent {
 
   post(request, data) {
     this.validateAuth();
-    let token = '?access_token=' + this.accesstoken
+    let token = '?api_key=' + this.apiKey
     if (request.indexOf('?') > -1) {
       token = token.replace('?', '&')
     }
     const url = this.domain + this.baseUrl + request + token;
-    // this.headers = this.headers.append('access_token',  this.accesstoken);
+    // this.headers = this.headers.append('api_key',  this.apiKey);
     return this.http.post(url, data, {
       headers: this.headers
     }).toPromise<any>();;
@@ -116,7 +116,7 @@ export class AppComponent {
       if (result) {
         // make curl request if request to server is successfull
         this.createRequestCurl = `curl -d '${JSON.stringify(params)}'\
-          -H "Content-Type: application/json" -H "access_token: ${this.accesstoken}" \
+          -H "Content-Type: application/json" -H "api_key: ${this.apiKey}" \
           -X POST ${this.domain}${this.baseUrl}request`
 
         this.reponse = result
@@ -131,7 +131,7 @@ export class AppComponent {
     const request = `requests?date=${this.getReqDate || ''}&subCustomerId=${this.getReqSubCustomerId || ''}&subUserId=${this.getReqSubUserId || ''}`;
     try {
       const result = await this.get(request);
-      this.getRequestCurl = `curl -H "access_token: ${this.accesstoken}"\
+      this.getRequestCurl = `curl -H "api_key: ${this.apiKey}"\
       -X GET ${this.domain}${this.baseUrl}${request}`
 
       if (result) {
@@ -148,7 +148,7 @@ export class AppComponent {
       const request = `videos?requestId=${this.videosRequestId || ''}&search=${this.videosSearch || ''}&fromDate=${this.videosfromDate || ''}&toDate=${this.videostoDate || ''}`
       const result = await this.get(request);
       if (result) {
-        this.getVideoCurl = `curl -H "access_token: ${this.accesstoken}"\
+        this.getVideoCurl = `curl -H "api_key: ${this.apiKey}"\
         -X GET ${this.domain}${this.baseUrl}${request}`
 
         this.videos = result;
