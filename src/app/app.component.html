@@ -211,6 +211,20 @@
       </small>
     </div>
 
+    <div class="form-check">
+      <input  type="checkbox" class="form-check-input" [(ngModel)]="vidPackagedContent" />
+      <label>Packaged Content</label>
+    </div>
+
+    <div class="form-check">
+      <input  type="checkbox" class="form-check-input" [(ngModel)]="vidEditedContent" />
+      <label>Edit Content</label>
+    </div>
+
+    <div class="form-check">
+      <input  type="checkbox" class="form-check-input" [(ngModel)]="vidRawVideos" />
+      <label>Raw Videos</label>
+    </div>
     <br>
     <button class="btn btn-primary" (click)="getVideos()">Search Videos</button>
     <div class="form-group" *ngIf="getVideoCurl">

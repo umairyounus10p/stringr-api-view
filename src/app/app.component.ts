@@ -17,6 +17,9 @@ export class AppComponent {
   videosSearch: string;
   videosfromDate: string;
   videostoDate: string;
+  vidPackagedContent: false;
+  vidEditedContent: false;
+  vidRawVideos: false;
   //
   private baseUrl = '/api/public/';
   private footageRequestUrl = 'requests';
@@ -63,7 +66,7 @@ export class AppComponent {
     if (request.indexOf('?') > -1) {
       token = token.replace('?', '&')
     }
-    // this.headers = this.headers.append('api_key',  this.apiKey);
+    // this.headers = this.headers.append('api-key',  this.apiKey);
     const url = this.domain + this.baseUrl + request + token;
     return this.http.get(url, {
       headers: this.headers
@@ -72,7 +75,7 @@ export class AppComponent {
 
   post(request, data) {
     this.validateAuth();
-    let token = '?api_key=' + this.apiKey
+    let token = '?api-key=' + this.apiKey
     if (request.indexOf('?') > -1) {
       token = token.replace('?', '&')
     }
@@ -145,7 +148,19 @@ export class AppComponent {
 
   async getVideos() {
     try {
-      const request = `videos?requestId=${this.videosRequestId || ''}&search=${this.videosSearch || ''}&fromDate=${this.videosfromDate || ''}&toDate=${this.videostoDate || ''}`
+      let request = `videos?requestId=${this.videosRequestId || ''}&search=${this.videosSearch || ''}&fromDate=${this.videosfromDate || ''}&toDate=${this.videostoDate || ''}`
+      if(this.vidPackagedContent) {
+        request += `&packagedContent=${this.vidPackagedContent}`
+      }
+
+      if(this.vidRawVideos) {
+        request += `&rawcontent=${this.vidRawVideos}`
+      }
+
+      if(this.vidEditedContent) {
+        request += `&editedContent=${this.vidEditedContent}`
+      }
+      
       const result = await this.get(request);
       if (result) {
         this.getVideoCurl = `curl -H "api_key: ${this.apiKey}"\
