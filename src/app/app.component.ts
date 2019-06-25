@@ -64,12 +64,12 @@ export class AppComponent {
 
   get(request: string) {
     this.validateAuth();
-    let token = '?api_key=' + this.apiKey
-    if (request.indexOf('?') > -1) {
-      token = token.replace('?', '&')
-    }
-    // this.headers = this.headers.append('api-key',  this.apiKey);
-    const url = this.domain + this.baseUrl + request + token;
+    // let token = '?api_key=' + this.apiKey
+    // if (request.indexOf('?') > -1) {
+    //   token = token.replace('?', '&')
+    // }
+    this.headers = this.headers.set('api-key',  this.apiKey);
+    const url = this.domain + this.baseUrl + request;
     return this.http.get(url, {
       headers: this.headers
     }).toPromise<any>();
@@ -77,12 +77,12 @@ export class AppComponent {
 
   post(request, data) {
     this.validateAuth();
-    let token = '?api-key=' + this.apiKey
-    if (request.indexOf('?') > -1) {
-      token = token.replace('?', '&')
-    }
-    const url = this.domain + this.baseUrl + request + token;
-    // this.headers = this.headers.append('api_key',  this.apiKey);
+    // let token = '?api-key=' + this.apiKey
+    // if (request.indexOf('?') > -1) {
+    //   token = token.replace('?', '&')
+    // }
+    const url = this.domain + this.baseUrl + request;
+    this.headers = this.headers.set('api-key',  this.apiKey);
     return this.http.post(url, data, {
       headers: this.headers
     }).toPromise<any>();;
