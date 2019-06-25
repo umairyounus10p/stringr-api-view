@@ -46,6 +46,8 @@ export class AppComponent {
   getReqSubCustomerId: string;
   getReqSubUserId: string;
   footageRequests: any;
+  pageNumber: Number = 0;
+  pageSize: Number = 50;
 
   constructor(
     private http: HttpClient) {
@@ -160,6 +162,14 @@ export class AppComponent {
       if(this.vidEditedContent) {
         request += `&editedContent=${this.vidEditedContent}`
       }
+
+      if(this.pageNumber) {
+        request += `&pageNumber=${this.pageNumber}`
+      }
+
+      if(this.pageSize) {
+        request += `&pageSize=${this.pageSize}`
+      }
       
       const result = await this.get(request);
       if (result) {
@@ -171,6 +181,9 @@ export class AppComponent {
       }
     } catch (err) {
       console.log('getVideos-Error->', err)
+      if (err.error && err.error.message && err.error.message.includes('pagination')) {
+        alert(err.error.message)
+      }
     }
   }
 

@@ -226,6 +226,19 @@
       <label>Raw Videos</label>
     </div>
     <br>
+
+    <div class="form-group row">
+      <div class="col-xs-2">
+        <label for="ex1">Page Number</label>
+        <input class="form-control" [(ngModel)]="pageNumber" type="text">
+      </div>
+      <div class="col-xs-2">
+        <label for="ex2">Page Size</label>
+        <input class="form-control" [(ngModel)]="pageSize" type="text">
+      </div>
+    </div>
+
+
     <button class="btn btn-primary" (click)="getVideos()">Search Videos</button>
     <div class="form-group" *ngIf="getVideoCurl">
       <label for="exampleFormControlTextarea2">Curl Request</label>
